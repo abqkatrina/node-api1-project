@@ -4,26 +4,35 @@ const shortid = require("shortid");
 
 const server = express();
 
-let hubs = [];
+// let users = [];
 
 server.use(express.json());
 
 server.get("/", (req, res) => {
-  res.status(200).json({ api: "running..." });
+const users = [
+    {
+        id: 1,
+        username: 'Bob'
+    },
+    {
+        id: 2,
+        username: 'Mercutio'
+    }]
+    res.status(200).json(users)
 });
 
-server.post("/api/hubs", (req, res) => {
-  const hubInfo = req.body;
+server.post("/api/users", (req, res) => {
+  const usersInfo = req.body;
 
-  hubInfo.id = shortid.generate();
+  usersInfo.id = shortid.generate();
 
-  hubs.push(hubInfo);
+  users.push(usersInfo);
 
-  res.status(201).json(hubInfo);
+  res.status(201).json(usersInfo);
 });
 
-server.get("/api/hubs", (req, res) => {
-  res.status(200).json(hubs);
+server.get("/api/users", (req, res) => {
+  res.status(200).json(users);
 });
 
 
